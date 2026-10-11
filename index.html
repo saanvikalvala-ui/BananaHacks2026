@@ -3,26 +3,34 @@
 <title>Blueprint Studio</title>
 <link rel="stylesheet" href="style.css">
 </head><body>
-<header class="hero"><div class="logo">📐</div><h1>Blueprint Studio</h1><p>Describe a building. Watch it appear as a blueprint and a finished design.</p></header>
+<div class="brand-lockup"><span class="brand">Formivue</span><div class="brand-promo"><span class="brand-tagline">DREAM IT.</span><span class="brand-tagline">DESIGN IT.</span><span class="brand-subtitle">Turn your imagination into something amazing</span></div></div>
+<button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">🌙 Dark mode</button>
 <main class="grid">
+<section>
+<div class="card"><div class="tabs"><button data-tab="look">🏠 Overall look</button><button data-tab="plan">📐 Blueprint</button><button data-tab="3d">🧊 3D view</button></div>
+<div id="view"></div><div class="info" id="info"></div></div>
+<div class="stats" id="stats"></div>
+<p class="note">Concept drawings generated from your description. Not construction-ready plans.</p>
+<p class="site-footer">“Dream up any building &amp; watch AI turn your ideas into a design!”</p>
+</section>
 <section class="panel">
-<div class="card"><h2>1 · Describe it</h2>
+<div class="card describe-card"><h2>1 · Describe it</h2>
 <textarea id="desc">A modern two-story house with 4 bedrooms, 3 bathrooms, a garage and a flat roof, gray walls.</textarea>
+<div class="lbl">Choose a building type</div>
 <div class="chips" id="chips"></div><button class="go" id="go">✨ Generate design</button></div>
 <div class="card"><h2>2 · Fine-tune</h2>
 <div class="ctl"><span>🏢 Floors</span><div class="st"><button data-k="floors" data-d="-1">−</button><b id="v-floors"></b><button data-k="floors" data-d="1">+</button></div></div>
-<div class="ctl"><span>🛏️ Bedrooms</span><div class="st"><button data-k="beds" data-d="-1">−</button><b id="v-beds"></b><button data-k="beds" data-d="1">+</button></div></div>
-<div class="ctl"><span>🛁 Bathrooms</span><div class="st"><button data-k="baths" data-d="-1">−</button><b id="v-baths"></b><button data-k="baths" data-d="1">+</button></div></div>
-<div class="tgs"><label class="tg"><input type="checkbox" id="t-garage"><span>🚗 Garage</span></label><label class="tg"><input type="checkbox" id="t-office"><span>💻 Office</span></label></div>
+<div class="ctl" data-residential><span>🛏️ Bedrooms</span><div class="st"><button data-k="beds" data-d="-1">−</button><b id="v-beds"></b><button data-k="beds" data-d="1">+</button></div></div>
+<div class="ctl" data-residential><span>🛁 Bathrooms</span><div class="st"><button data-k="baths" data-d="-1">−</button><b id="v-baths"></b><button data-k="baths" data-d="1">+</button></div></div>
+<div class="tgs" data-residential><label class="tg"><input type="checkbox" id="t-garage"><span>🚗 Garage</span></label><label class="tg"><input type="checkbox" id="t-office"><span>💻 Office</span></label></div>
+<div class="lbl" data-residential>Outdoor spaces</div>
+<div class="tgs" data-residential><label class="tg"><input type="checkbox" id="t-balcony"><span>🌇 Balcony (2+ floors)</span></label><label class="tg"><input type="checkbox" id="t-patio"><span>🌿 Patio</span></label></div>
+<div class="lbl" data-residential>Window type</div>
+<div class="window-options" id="window-options" data-residential></div></div>
+<div class="card">
 <div class="lbl">Style</div><div class="styles" id="styles"></div>
 <div class="lbl">Roof</div><div class="seg"><button data-roof="flat">Flat</button><button data-roof="gable">Gable</button><button data-roof="hip">Hip</button></div>
 <div class="lbl">Wall color</div><div class="sws" id="sws"></div></div>
-</section>
-<section>
-<div class="stats" id="stats"></div>
-<div class="card"><div class="tabs"><button data-tab="look">🏠 Overall look</button><button data-tab="plan">📐 Blueprint</button><button data-tab="3d">🧊 3D view</button></div>
-<div id="view"></div><div class="info" id="info"></div></div>
-<p class="note">Concept drawings generated from your description. Not construction-ready plans.</p>
 </section></main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="script.js"></script>
