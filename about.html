@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About — Formivue</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header class="site-header">
+<div class="brand-wrapper">
+<svg class="brand-logo-icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 3.8l6 5.4v6.8H6v-6.8l6-5.4z" fill="var(--a1)"/></svg>
+<a class="brand" href="index.html">Formivue</a>
+</div>
+<nav class="site-nav" aria-label="Main navigation">
+<a href="index.html">Studio</a>
+<a href="about.html" class="active">About</a>
+</nav>
+<button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">🌙 Dark mode</button>
+</header>
+<main class="about-container">
+<section class="about-hero">
+<h1>About Formivue</h1>
+<p class="about-lead">Transforming raw imagination into interactive architectural blueprints and 3D models in real time.</p>
+</section>
+<section class="about-section card">
+<h2>Our Mission</h2>
+<p>Formivue bridges the gap between creative architectural concepts and technical visualization. Whether you're planning a cozy farmhouse, a modern urban office, or a neighborhood cafe, our platform instantly generates structured conceptual floor plans, customizable elevations, and immersive 3D walkthroughs without the steep learning curve of professional CAD software.</p>
+</section>
+<section class="about-grid">
+<div class="card">
+<h2>The Problem We're Solving</h2>
+<p>Traditional architecture tools require hours of manual setup, precise scaling configurations, and expensive software licenses just to test a basic layout idea. Formivue lets you describe your vision in plain English and instantly interact with a multi-angle representation of your future space.</p>
+</div>
+<div class="card">
+<h2>Under the Hood</h2>
+<p>Built for speed and reliability, Formivue combines dynamic SVG geometry generation for detailed floor plans and clean front elevations with a custom Three.js WebGL engine for 3D interior and exterior visualization—all packaged into a lightweight, zero-dependency client application.</p>
+</div>
+</section>
+<section class="about-section card">
+<h2>Meet the Founders</h2>
+<div class="founders-grid">
+<div class="founder-card">
+<div class="founder-photo-placeholder">👤</div>
+<h3>Founder One</h3>
+<p class="founder-role">Lead Architect & Product Vision</p>
+<p class="founder-bio">Passionate about parametric design, user experience, and making architectural planning accessible to everyone.</p>
+</div>
+<div class="founder-card">
+<div class="founder-photo-placeholder">👤</div>
+<h3>Founder Two</h3>
+<p class="founder-role">Full-Stack & Graphics Engineer</p>
+<p class="founder-bio">Specializes in real-time WebGL rendering, geometry parsing algorithms, and interactive web tools.</p>
+</div>
+<div class="founder-card">
+<div class="founder-photo-placeholder">👤</div>
+<h3>Founder Three</h3>
+<p class="founder-role">UI/UX & Frontend Developer</p>
+<p class="founder-bio">Focused on crafting responsive interfaces, cohesive design systems, and seamless user interactions.</p>
+</div>
+</div>
+</section>
+<div class="back-to-studio">
+<a href="index.html" class="go" style="display:inline-block; text-align:center; text-decoration:none; max-width:280px;">← Back to Studio</a>
+</div>
+</main>
+<footer class="site-footer-main">
+<div class="footer-content">
+<div class="footer-brand">Formivue / Blueprint Studio</div>
+<p>Empowering creators to visualize architecture instantly for Banana Hacks 2026.</p>
+<div class="footer-links">
+<a href="index.html">Studio</a>
+<a href="about.html">About</a>
+</div>
+<p class="copyright">&copy; 2026 Formivue Team. All rights reserved.</p>
+</div>
+</footer>
+<script>
+var themeToggle=document.getElementById('theme-toggle'),savedTheme=localStorage.getItem('formivue-theme');
+document.documentElement.dataset.theme=savedTheme=='dark'?'dark':'light';
+function updateThemeToggle(){var dark=document.documentElement.dataset.theme=='dark';themeToggle.textContent=dark?'☀️ Light mode':'🌙 Dark mode';themeToggle.setAttribute('aria-pressed',dark)}
+themeToggle.addEventListener('click',function(){var dark=document.documentElement.dataset.theme!='dark';document.documentElement.dataset.theme=dark?'dark':'light';localStorage.setItem('formivue-theme',dark?'dark':'light');updateThemeToggle()});
+updateThemeToggle();
+</script>
+</body></html>
