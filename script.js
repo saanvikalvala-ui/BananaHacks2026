@@ -44,7 +44,9 @@ row.forEach(function(r){var w=r.w/tot*W,X=pad+x*S,Y=pad+ri*rh*S,ww=w*S,hh=rh*S,f
 s+='<rect class="rm" data-n="'+r.n+'" data-w="'+Math.round(w*SC)+'" data-d="'+Math.round(rh*SC)+'" x="'+X+'" y="'+Y+'" width="'+ww+'" height="'+hh+'" fill="'+(r.g?'#1a4fa8':'none')+'" stroke="#e6f0ff" stroke-width="3"/>';
 s+='<text x="'+(X+ww/2)+'" y="'+(Y+hh/2)+'" fill="#e6f0ff" font-size="'+fs+'" text-anchor="middle">'+r.n.toUpperCase()+'</text>';
 s+='<text x="'+(X+ww/2)+'" y="'+(Y+hh/2+14)+'" fill="#9fc2ff" font-size="'+Math.min(10,fs)+'" text-anchor="middle">'+Math.round(w*SC)+"' x "+Math.round(rh*SC)+"'</text>";
-if((ri==0&&(/^(Living|Reception|Retail Floor|Cafe Seating)$/.test(r.n)||(p.buildingType=='restaurant'&&r.n=='Dining')))||r.n=='Entry')s+='<path d="M'+(X+ww/2-14)+' '+(Y+hh)+'a14 14 0 0 1 14 -14" fill="none" stroke="#e6f0ff" stroke-width="1.5"/>';
+var doorW=Math.min(30,ww*.45,hh*.4),doorX=X+(ww-doorW)/2,doorY=Y+hh;
+s+='<path d="M'+doorX+' '+doorY+'h'+doorW+'" fill="none" stroke="#0b3d91" stroke-width="5"/>';
+s+='<path d="M'+doorX+' '+doorY+'v-'+doorW+'a'+doorW+' '+doorW+' 0 0 1 '+doorW+' '+doorW+'" fill="none" stroke="#e6f0ff" stroke-width="1.5"/>';
 x+=w})});
 if(out){var ox=pad+W*S+10,oy=pad+D*S/2-25;s+='<rect x="'+ox+'" y="'+oy+'" width="70" height="50" fill="#315f9d" stroke="#e6f0ff" stroke-width="3"/><text x="'+(ox+35)+'" y="'+(oy+23)+'" fill="#e6f0ff" font-size="10" text-anchor="middle">'+(gnd?'PATIO':'BALCONY')+'</text><text x="'+(ox+35)+'" y="'+(oy+38)+'" fill="#9fc2ff" font-size="9" text-anchor="middle">'+Math.round(7*SC)+"' x "+Math.round(5*SC)+"'</text>"}
 var by=pad+D*S;s+='<line x1="'+pad+'" y1="'+(by+18)+'" x2="'+(pad+W*S)+'" y2="'+(by+18)+'" stroke="#9fc2ff"/><text x="'+(pad+W*S/2)+'" y="'+(by+32)+'" fill="#9fc2ff" font-size="11" text-anchor="middle">'+Math.round(W*SC)+"' - 0\"</text>";
@@ -271,10 +273,14 @@ var roomStat=P.buildingType=='house'?'<b>'+P.beds+' bd / '+P.baths+' ba</b><span
 $('stats').innerHTML='<div class="stat"><b>~'+tgt.toLocaleString()+'</b><span>sq ft floor area</span></div><div class="stat"><b>'+P.floors+'</b><span>floor'+(P.floors>1?'s':'')+' · '+rooms+' rooms</span></div><div class="stat">'+roomStat+'</div><div class="stat"><b>'+P.roof.charAt(0).toUpperCase()+P.roof.slice(1)+'</b><span>roof type · '+STY[P.style][1]+' '+STY[P.style][0]+'</span></div>';
 var h,info;
 if(tab=='look'){h='<div class="wrap">'+elevSVG(P)+'</div><div class="pills">'+['day','sunset','night'].map(function(t){return '<button data-tod="'+t+'" class="'+(t==tod?'on':'')+'">'+({day:'☀️ Day',sunset:'🌇 Sunset',night:'🌙 Night'})[t]+'</button>'}).join('')+'</div>';info='Try the time-of-day buttons, or change anything in the controls.'}
-else if(tab=='3d'){h='<div class="v3" id="v3"></div><div class="pills">'+['day','sunset','night'].map(function(t){return '<button data-tod="'+t+'" class="'+(t==tod?'on':'')+'">'+({day:'☀️ Day',sunset:'🌇 Sunset',night:'🌙 Night'})[t]+'</button>'}).join('')+'<button data-act="rot" class="'+(AUTO?'on':'')+'">🔄 Auto-rotate</button><button data-act="reset">↺ Reset view</button></div>';info='Drag to look around · zoom in to see inside the house.'}else{h=(FL.length>1?'<div class="pills">'+FL.map(function(f,i){return '<button data-fl="'+i+'" class="'+(i==fi?'on':'')+'">'+f.name+'</button>'}).join('')+'</div>':'')+'<div class="wrap">'+planSVG(FL[fi],P)+'</div>';info='Hover or tap a room to see its size.'}
+else if(tab=='3d'){h='<div class="v3" id="v3"></div><div class="pills">'+['day','sunset','night'].map(function(t){return '<button data-tod="'+t+'" class="'+(t==tod?'on':'')+'">'+({day:'☀️ Day',sunset:'🌇 Sunset',night:'🌙 Night'})[t]+'</button>'}).join('')+'<button data-act="rot" class="'+(AUTO?'on':'')+'">🔄 Auto-rotate</button><button data-act="reset">↺ Reset view</button></div>';info='Drag to look around · zoom in to see inside the house.'}else{h='<div class="pills">'+(FL.length>1?FL.map(function(f,i){return '<button type="button" data-fl="'+i+'" class="'+(i==fi?'on':'')+'">'+f.name+'</button>'}).join(''):'')+'<button type="button" data-act="download">⬇️ Download blueprint</button></div><div class="wrap">'+planSVG(FL[fi],P)+'</div>';info='Hover or tap a room to see its size.'}
 $('view').innerHTML=h;$('info').innerHTML=info;if(tab=='3d')mount3D();
 $('view').classList.remove('pop');void $('view').offsetWidth;$('view').classList.add('pop')}
 function show(t){var w=+t.dataset.w,d=+t.dataset.d;$('info').innerHTML='<b>'+t.dataset.n+'</b> · '+w+"' × "+d+"' · about "+(w*d)+' sq ft'}
+function downloadBlueprint(){var gap=24,width=0,height=0,floors=FL.map(function(fl){var svg=planSVG(fl,P),viewBox=svg.match(/<svg viewBox="0 0 (\d+) (\d+)"/);if(!viewBox)throw new Error('Could not prepare the blueprint for download.');var floor={svg:svg,width:+viewBox[1],height:+viewBox[2],y:height};width=Math.max(width,floor.width);height+=floor.height+gap;return floor});
+height-=gap;var out='<svg xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'" viewBox="0 0 '+width+' '+height+'" font-family="Courier New,monospace"><title>'+P.buildingType+' blueprint</title>';
+floors.forEach(function(fl){out+='<svg x="'+(width-fl.width)/2+'" y="'+fl.y+'" width="'+fl.width+'" height="'+fl.height+'" viewBox="0 0 '+fl.width+' '+fl.height+'">'+fl.svg.replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,'')+'</svg>'});
+out+='</svg>';var url=URL.createObjectURL(new Blob([out],{type:'image/svg+xml;charset=utf-8'})),link=document.createElement('a');link.href=url;link.download='formivue-'+P.buildingType+'-blueprint.svg';document.body.appendChild(link);link.click();link.remove();setTimeout(function(){URL.revokeObjectURL(url)},1000)}
 function gen(){var pl=P&&P.land;P=parse($('desc').value);P.land=P.land||pl||'lush';fi=0;render()}
 document.addEventListener('click',function(e){var t=e.target.closest('button,.rm');if(!t)return;var d=t.dataset;
 if(d.k=='sqft'){var cur=P.sqft||Math.round(calc()/100)*100;P.sqft=Math.max(400,Math.min(12000,cur+(+d.d)));render()}
@@ -288,7 +294,7 @@ else if(d.roof){P.roof=d.roof;if(d.roof=='flat'&&P.windowStyle=='dormer'){$('des
 else if(d.windowStyle){chooseWindowStyle(d.windowStyle)}
 else if(d.s){var a=PAL[d.s];P.style=d.s;P.wall=a[0];P.roofC=a[1];P.door=a[2];P.roof=a[3];render()}
 else if(d.c){P.wall=d.c;render()}
-else if(d.act){if(d.act=='rot'){AUTO=!AUTO;t.classList.toggle('on',AUTO)}else{CAM.th=.6;CAM.ph=1.15;CAM.r=135}}else if(d.building!==undefined){$('desc').value=BUILDINGS[+d.building].prompt;gen()}else if(d.ex!==undefined){$('desc').value=EX[+d.ex];gen()}
+else if(d.act){if(d.act=='rot'){AUTO=!AUTO;t.classList.toggle('on',AUTO)}else if(d.act=='download'){downloadBlueprint()}else{CAM.th=.6;CAM.ph=1.15;CAM.r=135}}else if(d.building!==undefined){$('desc').value=BUILDINGS[+d.building].prompt;gen()}else if(d.ex!==undefined){$('desc').value=EX[+d.ex];gen()}
 else if(t.id=='go'){gen()}
 else if(t.classList.contains('rm')){show(t)}});
 document.addEventListener('mouseover',function(e){var t=e.target;if(t.classList&&t.classList.contains('rm'))show(t)});
