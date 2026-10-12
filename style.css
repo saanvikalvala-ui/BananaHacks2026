@@ -217,8 +217,85 @@ body {
 }
 
 @media(max-width:560px) {
+  .site-header {
+    gap: 8px;
+    padding: 12px
+  }
+
+  .site-header .brand {
+    font-size: 20px
+  }
+
+  .site-nav {
+    position: static;
+    gap: 12px;
+    transform: none
+  }
+
+  .site-nav a {
+    font-size: 12px
+  }
+
+  .theme-toggle {
+    padding: 8px 10px;
+    font-size: 12px
+  }
+
+  .brand-lockup {
+    flex-direction: column;
+    gap: 0;
+    padding: 16px 12px 0
+  }
+
+  .brand-promo {
+    width: 100%;
+    transform: none
+  }
+
+  .brand-tagline {
+    -webkit-text-stroke-width: 2px;
+    font-size: clamp(36px, 11vw, 60px)
+  }
+
+  .brand-tagline:first-child {
+    transform: translateX(-12px)
+  }
+
+  .brand-tagline:nth-child(2) {
+    transform: translateX(12px)
+  }
+
+  .brand-subtitle {
+    width: 100%;
+    font-size: 14px
+  }
+
+  .brand-illustration {
+    width: min(72vw, 280px);
+    flex: 0 0 auto;
+    transform: none
+  }
+
+  .grid {
+    padding: 16px 12px 32px;
+    gap: 12px
+  }
+
+  .tabs button {
+    padding: 9px 6px;
+    font-size: 13px
+  }
+
   .panel {
     grid-template-columns: 1fr
+  }
+
+  .v3 {
+    height: clamp(300px, 100vw, 400px)
+  }
+
+  .about-container {
+    margin: 24px auto
   }
 }
 

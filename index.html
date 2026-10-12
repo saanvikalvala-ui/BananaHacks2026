@@ -2,8 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Formivue — Architecture Design Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Formivue — Architecture Design Studio</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -12,33 +11,15 @@
         <svg class="brand-logo-icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
           <path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 3.8l6 5.4v6.8H6v-6.8l6-5.4z" fill="var(--a1)"/>
         </svg>
-        <a class="brand" href="index.html">
-          Formivue
-        </a>
+<a class="brand" href="index.html">Formivue</a>
       </div>
-      <nav class="site-nav" aria-label="Main navigation">
-        <a href="index.html" class="active">
-          Studio
-        </a>
-        <a href="about.html">
-          About
-        </a>
+      <nav class="site-nav" aria-label="Main navigation"><a href="index.html" class="active">Studio</a><a href="about.html">About</a>
       </nav>
-      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
-        🌙 Dark mode
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">🌙 Dark mode
       </button>
     </header>
     <div class="brand-lockup">
-      <div class="brand-promo">
-        <span class="brand-tagline">
-          DREAM IT.
-        </span>
-        <span class="brand-tagline">
-          DESIGN IT.
-        </span>
-        <span class="brand-subtitle">
-          Turn your imagination into an interactive architectural design
-        </span>
+      <div class="brand-promo"><span class="brand-tagline">DREAM IT.</span><span class="brand-tagline">DESIGN IT.</span><span class="brand-subtitle">Turn your imagination into an interactive architectural design</span>
       </div>
       <img class="brand-illustration" src="assets/house-transparent.png" alt="Illustration of a house framed by shrubs">
     </div>
@@ -46,14 +27,11 @@
       <section>
         <div class="card">
           <div class="tabs">
-            <button data-tab="look" class="on">
-              🏠 Overall look
+            <button data-tab="look" class="on">🏠 Overall look
             </button>
-            <button data-tab="plan">
-              📐 Blueprint
+            <button data-tab="plan">📐 Blueprint
             </button>
-            <button data-tab="3d">
-              🧊 3D view
+            <button data-tab="3d">🧊 3D view
             </button>
           </div>
           <div id="view">
@@ -63,203 +41,118 @@
         </div>
         <div class="stats" id="stats">
         </div>
-        <p class="note">
-          Concept drawings generated from your description. Real construction-ready plans require verified dimensions, code compliance, and review by a qualified architect or engineer.
+        <p class="note">Concept drawings generated from your description. Real construction-ready plans require verified dimensions, code compliance, and review by a qualified architect or engineer.
         </p>
       </section>
       <section class="panel">
         <div class="card describe-card">
-          <h2>
-            1 · Describe it
+          <h2>1 · Describe it
           </h2>
-          <textarea id="desc">A modern two-story house with 4 bedrooms, 3 bathrooms, a garage and a flat roof, gray walls.</textarea>
-          <div class="lbl">
-            Choose a building type
+<textarea id="desc">A modern two-story house with 4 bedrooms, 3 bathrooms, a garage and a flat roof, gray walls.</textarea>
+          <div class="lbl">Choose a building type
           </div>
           <div class="chips" id="chips">
           </div>
-          <button class="go" id="go">
-            ✨ Generate design
+          <button class="go" id="go">✨ Generate design
           </button>
         </div>
         <div class="card" id="type-options" hidden>
         </div>
         <div class="card">
-          <h2>
-            2 · Fine-tune
+          <h2>2 · Fine-tune
           </h2>
-          <div class="ctl">
-            <span>
-              🏢 Floors
-            </span>
+          <div class="ctl"><span>🏢 Floors</span>
             <div class="st">
-              <button data-k="floors" data-d="-1" aria-label="Decrease floors">
-                −
+              <button data-k="floors" data-d="-1" aria-label="Decrease floors">−
               </button>
-              <b id="v-floors">
-              </b>
-              <button data-k="floors" data-d="1" aria-label="Increase floors">
-                +
+<b id="v-floors"></b>
+              <button data-k="floors" data-d="1" aria-label="Increase floors">+
               </button>
             </div>
           </div>
-          <div class="ctl" data-residential>
-            <span>
-              🛏️ Bedrooms
-            </span>
+          <div class="ctl" data-residential><span>🛏️ Bedrooms</span>
             <div class="st">
-              <button data-k="beds" data-d="-1" aria-label="Decrease bedrooms">
-                −
+              <button data-k="beds" data-d="-1" aria-label="Decrease bedrooms">−
               </button>
-              <b id="v-beds">
-              </b>
-              <button data-k="beds" data-d="1" aria-label="Increase bedrooms">
-                +
+<b id="v-beds"></b>
+              <button data-k="beds" data-d="1" aria-label="Increase bedrooms">+
               </button>
             </div>
           </div>
-          <div class="ctl" data-residential>
-            <span>
-              🛁 Bathrooms
-            </span>
+          <div class="ctl" data-residential><span>🛁 Bathrooms</span>
             <div class="st">
-              <button data-k="baths" data-d="-1" aria-label="Decrease bathrooms">
-                −
+              <button data-k="baths" data-d="-1" aria-label="Decrease bathrooms">−
               </button>
-              <b id="v-baths">
-              </b>
-              <button data-k="baths" data-d="1" aria-label="Increase bathrooms">
-                +
+<b id="v-baths"></b>
+              <button data-k="baths" data-d="1" aria-label="Increase bathrooms">+
               </button>
             </div>
           </div>
-          <div class="ctl">
-            <span>
-              📐 Target Sq Ft
-            </span>
+          <div class="ctl"><span>📐 Target Sq Ft</span>
             <div class="st">
-              <button data-k="sqft" data-d="-200" aria-label="Decrease square footage">
-                −
+              <button data-k="sqft" data-d="-200" aria-label="Decrease square footage">−
               </button>
-              <b id="v-sqft">
-                2200
-              </b>
-              <button data-k="sqft" data-d="200" aria-label="Increase square footage">
-                +
+<b id="v-sqft">2200</b>
+              <button data-k="sqft" data-d="200" aria-label="Increase square footage">+
               </button>
             </div>
           </div>
-          <div class="tgs" data-residential>
-            <label class="tg">
-              <input type="checkbox" id="t-garage">
-              <span>
-                🚗 Garage
-              </span>
-            </label>
-            <label class="tg">
-              <input type="checkbox" id="t-office">
-              <span>
-                💻 Office
-              </span>
-            </label>
+          <div class="tgs" data-residential><label class="tg"><input type="checkbox" id="t-garage"><span>🚗 Garage</span></label><label class="tg"><input type="checkbox" id="t-office"><span>💻 Office</span></label>
           </div>
-          <div class="lbl" data-residential>
-            Outdoor spaces
+          <div class="lbl" data-residential>Outdoor spaces
           </div>
-          <div class="tgs" data-residential>
-            <label class="tg">
-              <input type="checkbox" id="t-balcony">
-              <span>
-                🌇 Balcony (2+ floors)
-              </span>
-            </label>
-            <label class="tg">
-              <input type="checkbox" id="t-patio">
-              <span>
-                🌿 Patio
-              </span>
-            </label>
+          <div class="tgs" data-residential><label class="tg"><input type="checkbox" id="t-balcony"><span>🌇 Balcony (2+ floors)</span></label><label class="tg"><input type="checkbox" id="t-patio"><span>🌿 Patio</span></label>
           </div>
-          <div class="lbl">
-            Landscaping Style
+          <div class="lbl">Landscaping Style
           </div>
           <div class="seg" id="landscaping-seg">
-            <button data-land="lush" class="on">
-              Lush Lawn
+            <button data-land="lush" class="on">Lush Lawn
             </button>
-            <button data-land="modern">
-              Modern Hardscape
+            <button data-land="modern">Modern Hardscape
             </button>
-            <button data-land="wild">
-              Wildflower
+            <button data-land="wild">Wildflower
             </button>
           </div>
-          <div class="lbl" data-residential>
-            Window type
+          <div class="lbl" data-residential>Window type
           </div>
           <div class="window-options" id="window-options" data-residential>
           </div>
         </div>
         <div class="card">
-          <div class="lbl">
-            Style
+          <div class="lbl">Style
           </div>
           <div class="styles" id="styles">
           </div>
-          <div class="lbl">
-            Roof
+          <div class="lbl">Roof
           </div>
           <div class="seg">
-            <button data-roof="flat">
-              Flat
+            <button data-roof="flat">Flat
             </button>
-            <button data-roof="gable">
-              Gable
+            <button data-roof="gable">Gable
             </button>
-            <button data-roof="hip">
-              Hip
+            <button data-roof="hip">Hip
             </button>
           </div>
-          <div class="lbl">
-            Wall color
+          <div class="lbl">Wall color
           </div>
           <div class="sws" id="sws">
           </div>
-          <div class="lbl">
-            3D Furniture
-            &
-            Interior
+          <div class="lbl">3D Furniture&Interior
           </div>
-          <div class="tgs">
-            <label class="tg">
-              <input type="checkbox" id="t-furniture" checked>
-              <span>
-                🛋️ Show Furniture
-              </span>
-            </label>
+          <div class="tgs"><label class="tg"><input type="checkbox" id="t-furniture" checked><span>🛋️ Show Furniture</span></label>
           </div>
         </div>
       </section>
     </main>
     <footer class="site-footer-main">
       <div class="footer-content">
-        <div class="footer-brand">
-          Formivue / Blueprint Studio
+        <div class="footer-brand">Formivue / Blueprint Studio
         </div>
-        <p>
-          Empowering creators to visualize architecture instantly for Banana Hacks 2026.
+        <p>Empowering creators to visualize architecture instantly for Banana Hacks 2026.
         </p>
-        <div class="footer-links">
-          <a href="index.html">
-            Studio
-          </a>
-          <a href="about.html">
-            About
-          </a>
+        <div class="footer-links"><a href="index.html">Studio</a><a href="about.html">About</a>
         </div>
-        <p class="copyright">
-          &copy;
-          2026 Formivue Team. All rights reserved.
+        <p class="copyright">&copy;2026 Formivue Team. All rights reserved.
         </p>
       </div>
     </footer>
