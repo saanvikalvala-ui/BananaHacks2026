@@ -15,7 +15,7 @@ body{margin:0;color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,sans-
 .brand-lockup{display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;padding:14px 0 0 22px}
 .brand-promo{display:flex;width:max-content;flex-direction:column;align-items:center;gap:0;transform:translateX(40px)}
 .brand-illustration{display:block;width:clamp(240px,32vw,390px);height:auto;flex:0 1 auto;transform:translateX(-55px)}
-.brand-tagline{color:transparent;-webkit-text-fill-color:transparent;-webkit-text-stroke:1px var(--a1);font:700 120px/1 Arial,Helvetica,sans-serif;letter-spacing:0}
+.brand-tagline{color:transparent;-webkit-text-fill-color:transparent;-webkit-text-stroke:3.5px var(--a1);font:900 120px/1 Arial,Helvetica,sans-serif;letter-spacing:0}
 .brand-tagline:first-child{transform:translateX(-36px);opacity:.5}
 .brand-tagline:nth-child(2){transform:translateX(36px)}
 .brand-subtitle{width:max-content;color:var(--a1);font:400 18px/1.4 Arial,Helvetica,sans-serif;text-align:center}

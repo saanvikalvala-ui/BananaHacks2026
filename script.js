@@ -35,21 +35,24 @@ for(var j=0;j<nb;j++){r.push({n:bi?'Bedroom '+(bi+1):'Primary Bed',w:2});bi++}
 var r3=[];for(j=0;j<nba;j++)r3.push({n:'Bath',w:1});r3.push({n:'Landing',w:1.4});
 f.push({name:(fl==1?'Second':'Third')+' floor',rows:[r.length?r:[{n:'Loft',w:2}],r3]})}
 return f}
-function planSVG(fl,p){var S=10,gnd=fl.name=='Ground floor',W=44+(gnd&&p.garage?20:0),D=p.beds>3?38:32,out=(p.patio&&gnd)||(p.balcony&&!gnd),pad=60,ext=out?80:0,rows=fl.rows,rh=D/rows.length;
-var tw=W*S+pad*2+ext,th=D*S+pad*2+30,s='<svg viewBox="0 0 '+tw+' '+th+'" xmlns="http://www.w3.org/2000/svg" font-family="Courier New,monospace">';
+function planSVG(fl,p){var S=10,gnd=fl.name=='Ground floor',W=44+(gnd&&p.garage?20:0),D=p.beds>3?38:32,out=(p.patio&&gnd)||(p.balcony&&!gnd),pad=60,ext=out?80:0,rows=fl.rows,rh=D/rows.length,hall=rows.length>1?40:0,planH=D*S+hall*(rows.length-1);
+var tw=W*S+pad*2+ext,th=planH+pad*2+30,s='<svg viewBox="0 0 '+tw+' '+th+'" xmlns="http://www.w3.org/2000/svg" font-family="Courier New,monospace">';
 s+='<defs><pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#2a5db0" stroke-width=".6"/></pattern></defs>';
 s+='<rect width="100%" height="100%" fill="#0b3d91"/><rect width="100%" height="100%" fill="url(#g)"/>';
+if(hall)s+='<rect x="'+pad+'" y="'+(pad+rh*S)+'" width="'+W*S+'" height="'+hall+'" fill="#103f86"/>';
+function door(x,y,w,opensDown){var transform=opensDown?'translate('+(x+w)+' '+y+') rotate(180)':'translate('+x+' '+y+')';return '<g transform="'+transform+'"><path d="M0 0h'+w+'" fill="none" stroke="#0b3d91" stroke-width="5"/><path d="M0 0v-'+w+'a'+w+' '+w+' 0 0 1 '+w+' '+w+'" fill="none" stroke="#e6f0ff" stroke-width="1.5"/></g>'}
 rows.forEach(function(row,ri){var tot=row.reduce(function(a,r){return a+r.w},0),x=0;
-row.forEach(function(r){var w=r.w/tot*W,X=pad+x*S,Y=pad+ri*rh*S,ww=w*S,hh=rh*S,fs=Math.max(7,Math.min(12,ww/(r.n.length*.62)));
+row.forEach(function(r,ci){var w=r.w/tot*W,X=pad+x*S,Y=pad+ri*(rh*S+hall),ww=w*S,hh=rh*S,fs=Math.max(7,Math.min(12,ww/(r.n.length*.62)));
 s+='<rect class="rm" data-n="'+r.n+'" data-w="'+Math.round(w*SC)+'" data-d="'+Math.round(rh*SC)+'" x="'+X+'" y="'+Y+'" width="'+ww+'" height="'+hh+'" fill="'+(r.g?'#1a4fa8':'none')+'" stroke="#e6f0ff" stroke-width="3"/>';
 s+='<text x="'+(X+ww/2)+'" y="'+(Y+hh/2)+'" fill="#e6f0ff" font-size="'+fs+'" text-anchor="middle">'+r.n.toUpperCase()+'</text>';
 s+='<text x="'+(X+ww/2)+'" y="'+(Y+hh/2+14)+'" fill="#9fc2ff" font-size="'+Math.min(10,fs)+'" text-anchor="middle">'+Math.round(w*SC)+"' x "+Math.round(rh*SC)+"'</text>";
-var doorW=Math.min(30,ww*.45,hh*.4),doorX=X+(ww-doorW)/2,doorY=Y+hh;
-s+='<path d="M'+doorX+' '+doorY+'h'+doorW+'" fill="none" stroke="#0b3d91" stroke-width="5"/>';
-s+='<path d="M'+doorX+' '+doorY+'v-'+doorW+'a'+doorW+' '+doorW+' 0 0 1 '+doorW+' '+doorW+'" fill="none" stroke="#e6f0ff" stroke-width="1.5"/>';
+var doorW=Math.min(30,ww*.45,hh*.4);
+if(hall){if(ri%2==0)s+=door(X+(ww-doorW)/2,Y+hh,doorW,false);else s+=door(X+(ww-doorW)/2,Y,doorW,true)}
+if(gnd&&r.n=='Entry')s+=door(X+(ww-doorW)/2,Y+hh,doorW,false);
 x+=w})});
-if(out){var ox=pad+W*S+10,oy=pad+D*S/2-25;s+='<rect x="'+ox+'" y="'+oy+'" width="70" height="50" fill="#315f9d" stroke="#e6f0ff" stroke-width="3"/><text x="'+(ox+35)+'" y="'+(oy+23)+'" fill="#e6f0ff" font-size="10" text-anchor="middle">'+(gnd?'PATIO':'BALCONY')+'</text><text x="'+(ox+35)+'" y="'+(oy+38)+'" fill="#9fc2ff" font-size="9" text-anchor="middle">'+Math.round(7*SC)+"' x "+Math.round(5*SC)+"'</text>"}
-var by=pad+D*S;s+='<line x1="'+pad+'" y1="'+(by+18)+'" x2="'+(pad+W*S)+'" y2="'+(by+18)+'" stroke="#9fc2ff"/><text x="'+(pad+W*S/2)+'" y="'+(by+32)+'" fill="#9fc2ff" font-size="11" text-anchor="middle">'+Math.round(W*SC)+"' - 0\"</text>";
+if(hall)s+='<text x="'+(pad+W*S/2)+'" y="'+(pad+rh*S+hall/2+4)+'" fill="#9fc2ff" font-size="10" text-anchor="middle">HALL · 4\' WIDE</text>';
+if(out){var ox=pad+W*S+10,oy=pad+planH/2-25;s+='<rect x="'+ox+'" y="'+oy+'" width="70" height="50" fill="#315f9d" stroke="#e6f0ff" stroke-width="3"/><text x="'+(ox+35)+'" y="'+(oy+23)+'" fill="#e6f0ff" font-size="10" text-anchor="middle">'+(gnd?'PATIO':'BALCONY')+'</text><text x="'+(ox+35)+'" y="'+(oy+38)+'" fill="#9fc2ff" font-size="9" text-anchor="middle">'+Math.round(7*SC)+"' x "+Math.round(5*SC)+"'</text>"}
+var by=pad+planH;s+='<line x1="'+pad+'" y1="'+(by+18)+'" x2="'+(pad+W*S)+'" y2="'+(by+18)+'" stroke="#9fc2ff"/><text x="'+(pad+W*S/2)+'" y="'+(by+32)+'" fill="#9fc2ff" font-size="11" text-anchor="middle">'+Math.round(W*SC)+"' - 0\"</text>";
 s+='<text x="'+pad+'" y="30" fill="#fff" font-size="15" font-weight="bold">'+fl.name.toUpperCase()+'</text>';
 s+='<text x="'+(tw-pad)+'" y="30" fill="#9fc2ff" font-size="11" text-anchor="end">SCALE 1/8" = 1\'</text></svg>';return s}
 function buildCommercial(p){var o=p.opts||{},t=p.buildingType,a,b,f=[],i;
